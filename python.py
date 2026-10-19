@@ -39,20 +39,20 @@ while choice != 6:
     # customer chooses option 2: add product to cart 
     if choice == 2: 
         print("Which product would you like to add?")
-        for item in products: 
-            print(item)
-        chosen = input("Enter product number: ")
+        for item in range(len(products)): 
+            print(item + 1, ".", products[item])
+        chosen = int(input("Enter product number: "))
 
         # to validate that product number exists 
-        while (chosen != 1) or (chosen != 2) or (chosen != 3) or (chosen != 4) or (chosen != 5) or (chosen != 6): 
+        while (chosen < 1 or chosen > 6):
             print("Invalid product!")
             print("Please choose a number between 1 and 6. ")
-            chosen = input("Enter product number: ")
+            chosen = int(input("Enter product number: "))
 
         print(chosen, "was added to your cart!")
         # added to cart
-        # ask if i can use "insert" instead of "append"
-        shopping_cart.insert(0, products[chosen - 1])
+        shopping_cart.append(products[chosen - 1])
+        print(products[chosen - 1], "was added to your cart!")
 
     # customer chooses option 3: remove product from cart 
     if choice == 3:
@@ -63,12 +63,20 @@ while choice != 6:
             print("There is nothing to remove.")
         else:
             # displaying the current shopping cart
-            for item in shopping_cart:
-                print(item)
+            for item in range(len(shopping_cart)):
+                print(item + 1, ".", shopping_cart[item])
             print("Which item would you like to remove?")
-            remove = input("Enter the item number: ")
+            remove = int(input("Enter the item number: "))
         
             # validate that the item number exists in the cart
+            while (remove < 1 or remove > len(shopping_cart)):
+                print("Invalid item number!")
+                print("Please choose a number between 1 and", len(shopping_cart))
+                remove = int(input("Enter the item number: "))
+
+            # removes item from cart 
+            del shopping_cart[remove - 1]
+            print(shopping_cart[remove - 1], "was removed from your cart!")
 
     # customer chooses option 4: view shopping cart
     if choice == 4:
@@ -76,17 +84,16 @@ while choice != 6:
         if shopping_cart == []:
             print("Your shopping cart is empty!")
         else:
-            for item in shopping_cart:
-                for i in prices:
-                    print(item, i)
-                    print("Total Items:", len(shopping_cart))
+            for item in range(len(shopping_cart)):
+                print(item + 1, ".", shopping_cart[item], "$", f"{prices[products.index(shopping_cart[item])]:.2f}")
+            print("Total Items:", len(shopping_cart))
 
     # customer chooses option 5: view current total
     if choice == 5: 
         print(" ======== CURRENT TOTAL ======== ")
         subtotal = 0
-        for item in shopping_cart:
-            subtotal = subtotal + prices[products.index(item)]
+        for item in range(len(shopping_cart)):
+            subtotal = subtotal + prices[products.index(shopping_cart[item])]
         print("Subtotal: $", subtotal)
 
     print() 
