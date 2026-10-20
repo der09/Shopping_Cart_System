@@ -6,7 +6,7 @@
 from datetime import date 
 
 # list for products 
-products = ["Chips", "Soda" "Candy", "Cookies", "Water", "Sandwich"]
+products = ["Chips", "Soda", "Candy", "Cookies", "Water", "Sandwich"]
 
 # list for prices 
 prices = [2.00, 2.50, 1.50, 3.00, 1.00, 5.00]
@@ -34,18 +34,17 @@ while choice < 1 or choice > 6:
     choice = int(input("Enter your choice: "))
     print()
 
-def avaliable_products(): 
+def available_products(): 
 # customer chooses option 1 : view available products 
     print(" ======== AVAILABLE PRODUCTS ======== ")
-    for item in products:
-        for i in prices: 
-            print (products[item],".", item, i)
+    for item in range(len(products)):
+        print (f"#{(item + 1)}", products[item], prices[item])
 
 def add_product():
     # customer chooses option 2: add product to cart 
     print("Which product would you like to add?")
     for item in range(len(products)): 
-        print(item + 1, ".", products[item])
+        print(f"#{(item + 1)}", products[item])
     chosen = int(input("Enter product number: "))
 
     # to validate that product number exists 
@@ -54,7 +53,7 @@ def add_product():
         print("Please choose a number between 1 and 6. ")
         chosen = int(input("Enter product number: "))
 
-    print(chosen, "was added to your cart!")
+    
     # added to cart
     shopping_cart.append(products[chosen - 1])
     print(products[chosen - 1], "was added to your cart!")
@@ -82,8 +81,8 @@ def remove_product():
             remove = int(input("Enter the item number: "))
 
         # removes item from cart 
-        shopping_cart.pop[remove - 1]
         print(shopping_cart[remove - 1], "was removed from your cart!")
+        shopping_cart.pop(remove - 1)
 
 def view_cart():
     # customer chooses option 4: view shopping cart
@@ -92,7 +91,7 @@ def view_cart():
             print("Your shopping cart is empty!")
         else:
             for item in range(len(shopping_cart)):
-                print(item + 1, ".", shopping_cart[item], "$", f"{prices[products.index(shopping_cart[item])]:.2f}")
+                print(f"#{(item + 1)}", shopping_cart[item], "$", f"{prices[products.index(shopping_cart[item])]:.2f}")
             print("Total Items:", len(shopping_cart))
 
 
@@ -116,14 +115,17 @@ def menu():
     print("4. View Shopping Cart")
     print("5. View Current Total")
     print("6. Checkout")
-    
+    print() 
+
     choice = int(input("Enter your choice: "))
     return choice 
+    print()
+
 
 # while loop 
 while choice !=6: 
     if choice == 1 : 
-        avaliable_products()
+        available_products()
         choice = menu()
     elif choice == 2: 
         add_product() 
@@ -144,11 +146,11 @@ def calculate_discount(subtotal):
     discount = 0 
     # if statement to see if customer can get discount based on subtotal
     if subtotal >= 40: 
-        discount = subtotal * 0.15 
+        discount = 0.15 
     elif subtotal >= 20: 
-        discount = subtotal * 0.10
+        discount = 0.10
     elif subtotal >= 10:
-        discount = subtotal * 0.05
+        discount = 0.05
     elif subtotal == 0: 
         discount = 0
     else: 
@@ -165,7 +167,7 @@ if choice == 6:
 
     # final cost 
     discount = calculate_discount(subtotal)
-    final_total = subtotal - discount
+    final_total = (f"${subtotal - (discount * subtotal):.2f}")
 
     # checkout page 
 
