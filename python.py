@@ -40,7 +40,7 @@ def available_products():
     for item in range(len(products)):
         print (f"#{(item + 1)}", products[item], prices[item])
 
-def add_product():
+def add_product(shopping_cart):
     # customer chooses option 2: add product to cart 
     print("Which product would you like to add?")
     for item in range(len(products)): 
@@ -59,7 +59,7 @@ def add_product():
     print(products[chosen - 1], "was added to your cart!")
 
 
-def remove_product():
+def remove_product(shopping_cart):
 # customer chooses option 3: remove product from cart 
     
     print(" ======== YOUR SHOPPING CART ======== ")
@@ -84,7 +84,7 @@ def remove_product():
         print(shopping_cart[remove - 1], "was removed from your cart!")
         shopping_cart.pop(remove - 1)
 
-def view_cart():
+def view_cart(shopping_cart):
     # customer chooses option 4: view shopping cart
         print(" ======== YOUR SHOPPING CART ======== ")
         if shopping_cart == []:
@@ -95,7 +95,7 @@ def view_cart():
             print("Total Items:", len(shopping_cart))
 
 
-def view_total():
+def view_total(shopping_cart):
     # customer chooses option 5: view current total
     print(" ======== CURRENT TOTAL ======== ")
     subtotal = 0
@@ -128,16 +128,16 @@ while choice !=6:
         available_products()
         choice = menu()
     elif choice == 2: 
-        add_product() 
+        add_product(shopping_cart) 
         choice = menu() 
     elif choice == 3: 
-        remove_product() 
+        remove_product(shopping_cart) 
         choice = menu()
     elif choice == 4: 
-        view_cart() 
+        view_cart(shopping_cart) 
         choice = menu() 
     elif choice == 5: 
-        view_total() 
+        view_total(shopping_cart) 
         choice = menu()
     
 
@@ -173,8 +173,8 @@ if choice == 6:
 
     print("Date:", date.today())
     print("Subtotal: $", subtotal)
-    print("Discount:", (subtotal - discount), "%")
-    print("Amount saved: $", discount)
+    print("Discount:", discount * 100, "%")
+    print("Amount saved: $", discount * subtotal)
 
     print() 
 
